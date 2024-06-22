@@ -1,28 +1,27 @@
-use assert_cmd::prelude::*; 
-use predicates::prelude::*; 
-use std::process::Command; 
-use cli_shapes::create_shapes;
+use assert_cmd::prelude::*;
+use predicates::prelude::*;
+use std::process::Command;
 
 #[test]
-fn number_is_integer() -> Result<(), Box<dyn std::error::Error>> {
+fn number_is_not_integer() -> Result<(), Box<dyn std::error::Error>> {
     let mut cmd = Command::cargo_bin("shapes-cli")?;
 
-    cmd.arg("number").arg("abc");
+    cmd.arg("--number").arg("abc");
     cmd.assert()
         .failure()
-        .stderr(predicate::str::contains("number must be integer."));
+        .stderr(predicate::str::contains("invalid digit found in string"));
 
     Ok(())
 }
 
 #[test]
-fn create_shapes() -> Vec<String> {
-    let shapes = vec![
-        "square".to_string(),
-        "triangle".to_string(),
-        "rectangle".to_string(),
-    ];
-    shapes = create_shapes(3);
-    assert_eq!(shapes, shapes)
-}
+fn number_is_integer_5() -> Result<(), Box<dyn std::error::Error>> {
+    let mut cmd = Command::cargo_bin("shapes-cli")?;
 
+    cmd.arg("--number").arg("5");
+    cmd.assert()
+        .success()
+        .stdout(predicate::str::contains("Created shapes with 5 shapes:"));
+
+    Ok(())
+}

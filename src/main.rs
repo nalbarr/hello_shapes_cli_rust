@@ -1,5 +1,5 @@
 use clap::Parser;
-use cli_shapes::create_shapes;
+use shapes_cli::create_shapes;
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
