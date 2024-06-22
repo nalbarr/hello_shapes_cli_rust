@@ -6,6 +6,8 @@ pub fn create_shapes(num_shapes: usize) -> Vec<String> {
         "square".to_string(),
         "triangle".to_string(),
         "rectangle".to_string(),
+        "circle".to_string(),
+        "rhombus".to_string(),
     ];
     let mut rng = thread_rng();
     let mut shapes = shapes;
